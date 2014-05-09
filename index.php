@@ -1,8 +1,18 @@
 <?php
     include "php/dbconnect.php";
+    $admin=0;
     session_start();
-    if(isset($_SESSION['user-email']))
+    if(isset($_SESSION['user-email'])){
+
         $user=$_SESSION['user-email'];
+        $q=mysqli_query($con,"select * from user where email = '".$user."'");
+        if(mysqli_num_rows($q)>0){
+        
+            $data=mysqli_fetch_assoc($q);
+            if($data['admin']==1)
+                $admin=1;
+        }
+    }
     else
         $user=false;
 
@@ -21,7 +31,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="css/freelancer.css" rel="stylesheet" type="text/css">
+    <link href="css/shezarelearning.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" href="http://shezartech.com/SZ/wp-content/uploads/2013/09/logo_1.png">
 
     <!-- Fonts -->
@@ -59,7 +69,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio">Courses</a>
+                        <a href="#subjects">subjects</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#about">Get Started</a>
@@ -76,14 +86,21 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                       <li><a href="user.php">View Account</a></li>
+                                      ';
+                                      if($admin==1){
+                                        echo '
+                                        <li><a href="question.php">Add question</a></li>
+                                        <li><a href="subject.php">Manage topics</a></li>
+                                        ';
+                                      }
+                                      echo '
                                       <li><a href="logout.php">Logout</a></li>
                                     </ul>
                                   </li> ';
                             }
                             else{
                               echo '<a data-toggle="modal" data-target="#login-modal" href="#">Login</a>  ';
-                            }
-                            
+                            } 
                         ?>
                     </li>
                 </ul>
@@ -108,26 +125,26 @@
         </div>
     </header>
 
-    <section id="portfolio">
+    <section id="subjects">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Running courses</h2>
+                    <h2>Running subjects</h2>
                     <hr class="star-primary">
                 </div>
             </div>
             <div class="row">
             <?php
-                $q=mysqli_query($con,"select * from courses");
+                $q=mysqli_query($con,"select * from subjects");
                     while($row=mysqli_fetch_assoc($q)){
-                     echo   '<div class="col-sm-4 portfolio-item">
-                            <a href="#portfolioModal'.$row['course_id'].'" class="portfolio-link" data-toggle="modal">
+                     echo   '<div class="col-sm-4 subjects-item">
+                            <a href="#" data-target="#subjectsModal'.$row['subject_id'].'" class="subjects-link" data-toggle="modal">
                                 <div class="caption">
                                     <div class="caption-content">
                                         <i class="fa fa-search-plus fa-2x"></i><br><br><h4>'.$row['name'].'</h4>
                                     </div>
                                 </div>
-                                <img src="img/courseimg/'.$row['name'].'.png" class="img-responsive" alt="" />
+                                <img src="img/subjectimg/'.$row['name'].'.png" class="img-responsive" alt="" />
                             </a>
                         </div>';
                     }
@@ -146,15 +163,24 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <p>In this e-learning system we provide a vast range of cources to practice and learn and boost your knowledge.To start this you need to login to the site and then chose any one course to start with and then you can begin learning</p>
+                    <p>In this e-learning system we provide a vast range of cources to practice and learn and boost your knowledge.To start this you need to login to the site and then chose any one subject to start with and then you can begin learning</p>
                 </div>
                 <div class="col-lg-4">
                     <p>We are a forward thinking company that offers end to end e-Learning consultancy and solutions. From analyzing learner needs to generating learning reports, we are passionate and capable of developing custom learning solutions in record turn around times.</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <a data-toggle="modal" data-target="#login-modal" href="#" class="btn btn-lg btn-outline">
-                        <i class="fa fa-sign-in"></i> Login to start
-                    </a>
+                    <?php
+                        if($user)
+                            echo '
+                            <a href="#subjects" class="btn btn-lg btn-outline">
+                                <i class="fa fa-sign-in"></i> Get Started
+                            </a>';
+                        else
+                            echo '
+                            <a  href="#" data-target="#login-modal"  class="btn btn-lg btn-outline" data-toggle="modal">
+                                <i class="fa fa-sign-in"></i> Login to start
+                            </a>';
+                        ?>
                 </div>
             </div>
         </div>
@@ -170,7 +196,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <form role="form">
+                    <form role="form" id="contactus">
                         <div class="row">
                             <div class="form-group col-xs-12 floating-label-form-group">
                                 <label for="name">Name</label>
@@ -250,12 +276,12 @@
         </a>
     </div>
 
-    <!-- Portfolio Modals -->
+    <!-- subjects Modals -->
      <?php
-                $q=mysqli_query($con,"select * from courses");
+                $q=mysqli_query($con,"select * from subjects");
                     while($row=mysqli_fetch_assoc($q)){
                         echo '
-    <div class="portfolio-modal modal fade" id="portfolioModal'.$row['course_id'].'" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="subjects-modal modal fade" id="subjectsModal'.$row['subject_id'].'" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -269,9 +295,8 @@
                         <div class="modal-body">
                             <h2>'.$row['name'].'</h2>
                             <hr class="star-primary">
-                            <img src="img/courseimg/'.$row['name'].'.png" class="img-responsive img-centered" alt="">
-                            <h4>'.$row['short_info'].'</h4>
-                            <p>'.$row['large_info'].'</p>
+                            <img src="img/subjectimg/'.$row['name'].'.png" class="img-responsive img-centered" alt="">
+                            <p>'.$row['info'].'</p>
                             
                             <button type="button" class="btn btn-default"><i class="fa fa-sign-in"></i> Start</button>
 
@@ -289,102 +314,98 @@
     ?>
   
 
-    <div class="portfolio-modal modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
+        <div class="subjects-modal modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Login/Register</h2>
-                            <hr class="star-primary">
-                            <p>
-                                Note : All fields are compulsory
-                            </p>
-                            <ul class="nav nav-tabs">
-                              <li class="active"><a href="#login" data-toggle="tab" >Login</a></li>
-                              <li><a href="#register" data-toggle="tab">Register</a></li>
-                              <li><a href="#forgetpassword" data-toggle="tab">Forget Password</a></li>
-                            </ul>
-                            <div class="tab-content">
-                              <div class="tab-pane active" id="login">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <div class="modal-body">
+                                <h2>Login/Register</h2>
+                                <hr class="star-primary">
+                                <p>
+                                    Note : All fields are compulsory
+                                </p>
+                                <ul class="nav nav-tabs">
+                                  <li class="active"><a href="#login" data-toggle="tab" >Login</a></li>
+                                  <li><a href="#register" data-toggle="tab">Register</a></li>
+                                  <li><a href="#forgetpassword" data-toggle="tab">Forget Password</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="login">
+                                        <br>
+                                        <form role="form" id="login-form">
+                                          <div class="form-group">
+                                            <label for="email">Email address</label>
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                          </div>
+                                           <button class="btn btn-default"><i class="fa fa-sign-in"></i> Login</button>
+
+                                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                        </form>
+                                  </div>
+                                  <div class="tab-pane" id="register">
+                                        <br>
+                                       <form role="form" id="register-form">
+                                          <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="email">Email address</label>
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="repassword">Retype Password</label>
+                                            <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Password" required>
+                                          </div>
+                                           <button class="btn btn-default"><i class="fa fa-sign-in"></i> Register</button>
+
+                                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                        </form>
+                                  </div>
+                                  <div class="tab-pane" id="forgetpassword">
+                                      <form role="form" id="forgetpassword-form">
+                                        <br>
+                                          <div class="form-group">
+                                            <label for="email">Type your email address</label>
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                                          </div>
+                                           <button class="btn btn-default"><i class="fa fa-sign-in"></i> Go</button>
+
+                                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                        </form>
+                                  </div>
+                                </div>
                                 <br>
-                                  <form role="form" id="login-form">
-                                      <div class="form-group">
-                                        <label for="email">Email address</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                                      </div>
-                                       <button class="btn btn-default"><i class="fa fa-sign-in"></i> Login</button>
-
-                                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                    </form>
-                              </div>
-                              <div class="tab-pane" id="register">
-                                    <br>
-                                   <form role="form" id="register-form">
-                                      <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="email">Email address</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="repassword">Retype Password</label>
-                                        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Password" required>
-                                      </div>
-                                       <button class="btn btn-default"><i class="fa fa-sign-in"></i> Register</button>
-
-                                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                    </form>
-                              </div>
-                              <div class="tab-pane" id="forgetpassword">
-                                  <form role="form" id="forgetpassword-form">
-                                    <br>
-                                      <div class="form-group">
-                                        <label for="email">Type your email address</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
-                                      </div>
-                                       <button class="btn btn-default"><i class="fa fa-sign-in"></i> Go</button>
-
-                                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                    </form>
-                              </div>
+                                <br>
+                                <div class="well" id="message"></div>
                             </div>
-                            <br>
-                            <br>
-                            <div class="well" id="message"></div>
-                            
-                           
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="js/classie.js"></script>
     <script src="js/cbpAnimatedHeader.js"></script>
-    <script src="js/freelancer.js"></script>
+    <script src="js/shezarelearning.js"></script>
     <script type="text/javascript" src="js/mainpage.js"></script>
 
 </body>

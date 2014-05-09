@@ -1,3 +1,11 @@
+$("#contactus").submit(function(e) {
+	e.preventDefault();
+	$("#contactus")[0].reset();
+})
+
+
+
+
 $("#login-form").submit(function(e) {
 	e.preventDefault();
 	jQuery.ajax({
@@ -84,3 +92,27 @@ $("#forgetpassword-form").submit(function(e) {
 		}
 	})
 });
+
+$("#edit-photo").click(function(){
+	$("#logo-upload").click();
+})
+function editpic(){
+	var formData = new FormData($('#imgup')[0]);
+	$.ajax({
+		url: 'php/logo-upload.php',  //Server script to process data
+		type: 'POST',
+		success: function(data){
+			if(data=="done")
+				location.reload();
+			else
+				alert(data);
+		},
+		error: function(data){
+			alert("error");
+		},
+		data: formData,
+		cache: false,
+		contentType: false,
+		processData: false
+	});
+}
