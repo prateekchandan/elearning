@@ -68,7 +68,9 @@
             width: 210px;
             border-radius: 50%;
          }
-
+         .qout{
+            text-align: left;
+         }
         </style>
     </head>
     
@@ -135,6 +137,8 @@
     <div class="container" style="text-align:center">
         <h2>UPLOAD QUESTIONS</h2>
         <hr class="star-primary">
+        <blockquote>You can type the math in LateX or directly your math equation which will be conevrted
+        <a class="btn btn-success" data-toggle="modal" data-target="#tutorial" href="#">Tutorial</a></blockquote>
         <form class="col-md-10 col-md-offset-1" enctype="multipart/form-data" id="question">
             <div class="form-group">
                 <label class="col-md-2">Subject:</label>
@@ -165,8 +169,14 @@
             <div class="form-group">
                 <label class="col-md-2">Question:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" name='description' required></textarea>
+                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,1)" required></textarea>
                 </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2 qout" id="qout1">
+                    Question Preview
+                </div>
+                <input type="hidden" class="qhid1" name='description'>
             </div>
             <div class="form-group">
                 <label class="col-md-2">Image:</label>
@@ -178,8 +188,14 @@
             <div class="form-group">
                 <label class="col-md-2">Option A:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" name='cha' required></textarea>
+                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,2)" required></textarea>
                 </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2 qout" id="qout2">
+                    
+                </div>
+                <input type="hidden" class="qhid2" name='cha'>
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
@@ -190,8 +206,15 @@
             <div class="form-group">
                 <label class="col-md-2">Option B:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" name='chb' required></textarea>
+                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,3)" required></textarea>
                 </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2 qout" id="qout3">
+                    
+                </div>
+                <input type="hidden" class="qhid3" name='chb'>
+
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
@@ -202,8 +225,15 @@
             <div class="form-group">
                 <label class="col-md-2">Option C:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" name='chc' required></textarea>
+                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,4)" required></textarea>
                 </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2 qout" id="qout4">
+                    
+                </div>
+                <input type="hidden" class="qhid4" name='chc'>
+
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
@@ -214,8 +244,15 @@
             <div class="form-group">
                 <label class="col-md-2">Option D:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" name='chd' required></textarea>
+                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,5)" required></textarea>
                 </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2 qout" id="qout5">
+                    
+                </div>
+                <input type="hidden" class="qhid5" name='chd'>
+
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
@@ -308,7 +345,63 @@
             </div>
         </div>
     </footer>
-
+  <div class="subjects-modal modal fade" id="tutorial" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <div class="modal-body">
+                                <h2>Instruction to type Math</h2>
+                                <hr class="star-primary">
+                               <ul>
+                                   <li>
+                                       Type your question directly into the text boxes and to include math equations type inside $ \$ $ .. $ \$ $
+                                       <br>
+                                       For Example : Find the value of $ \$ $ (m_0)/(sqrt(1-(v^2)/(c^2))) $ \$ $ becomes $\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}$
+                                       
+                                    </li>
+                                    <li>You can type wide range of greek characters and all other in math equations. <br>Try writing these:
+                                        <ul>
+                                            <li>e^pii+1=0;  </li>
+                                            <li>(kq_1 q_2)/(r^2) </li>
+                                            <li>(Gm_1 m_2)/(r^2)</li>
+                                            <li>nabla.E=rho/(epsilon_0)</li>
+                                            <li>nabla*E= -(∂B)/(∂t)  </li>
+                                            <li>nabla*B=mu_0 J+mu_0 epsilon_0(∂E)/(∂t) </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        If you want to write more complex mathematical expressions like integrals , matrices etc.. you can include latex formatting in your page with a '$$' at end and beginning of your latex code
+                                        for example<br>
+                                        <code>$$\begin{bmatrix}1&2\\3&4\\ \end{bmatrix}$$</code> will become $\begin{bmatrix}1&2\\3&4\\ \end{bmatrix} $<br>
+                                        and <code>$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$</code> 
+                                        will become $\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$
+                                    </li>
+                                    <li>
+                                        For info on typing math refer them 
+                                        <ul>
+                                            <li><a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank">Resource 1</a></li>
+                                            <li><a href="http://www.calculatorium.com/mathjax-quick-start-tutorial/" target="_blank">Resource 2</a></li>
+                                            <li><a href="http://www.mathjax.org/resources/articles-and-presentations/integrating-mathjax/" target="_blank">Resource 3</a></li>
+                                        </ul>
+                                    </li>
+                               </ul>
+                               Note : To Get latex code of any of the math expression right click on the expression $\rightarrow$ select show math as $\rightarrow$ show tex commands
+                           
+                               
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     
     
   
@@ -321,6 +414,9 @@
     <script src="js/cbpAnimatedHeader.js"></script>
     <script src="js/shezarelearning.js"></script>
     <script type="text/javascript" src="js/mainpage.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full">
+    </script>
+    <script src="js/MathToTeX.js"></script>
     <script type="text/javascript"> 
         <?php
             echo "var subjects=".json_encode($sub).";";
@@ -346,8 +442,11 @@
                 url: 'php/question-upload.php?'+str,  //Server script to process data
                 type: 'POST',
                 success: function(data){
-                    if(data=="done")
+                    if(data=="done"){
                         $("#question")[0].reset();
+                        setcourse();
+                        $('.qout').html("");
+                    }
                     else{
                         alert(data);
                     }
@@ -362,6 +461,88 @@
             });
 
         })
+    </script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [
+                    ["$", "$"],
+                    ["\\(", "\\)"]
+                ]
+            }
+        });
+         //
+         //  Use a closure to hide the local variables from the
+         //  global namespace
+         //
+        window.onload = function () {
+
+            //
+            //  The onchange event handler that typesets the
+            //  math entered by the user
+            //
+            window.UpdateMath = function (TeX,no) {
+                //set the MathOutput HTML
+                /*if (document.getElementById('chk').checked) {
+                    var conv = TypedMath.wholeShebang(TeX);
+                    document.getElementById("MathOutput").innerHTML = "$$" + conv + "$$";
+                    document.getElementById("TeXbox").innerHTML = "<code>" + conv + "</code>";
+                } else {
+                    document.getElementById("MathOutput").innerHTML = TeX;
+                    document.getElementById("TeXbox").innerHTML = "";
+                }
+                //reprocess the MathOutput Element*/
+                TeX = TeX.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                var newTeX="";
+                var st=0;
+                var temp="";
+                for (var i = 0; i < TeX.length ; i++) {
+                    if(i!=(TeX.length-1) && TeX[i] == '$' && TeX[i+1]=='$')
+                    {
+                        newTeX+='$';
+                        i++;
+                    }
+                    else if(TeX[i]!='$')
+                    {
+                        if(st==0){
+                            newTeX+=TeX[i];
+                        }
+                        else{
+                            temp+=TeX[i];
+                        }
+                    }
+                    else
+                    {
+                        if(st==1){
+                            var conv = TypedMath.wholeShebang(temp);
+                            newTeX+='$'+conv+'$';
+                            temp="";
+
+                        }
+                        st=(st+1)%2;
+                    }
+                };
+                if(st==1){
+                    newTeX+='$'+temp;
+                }
+                TeX = newTeX;
+                document.getElementById("qout"+no).innerHTML = TeX;
+                $('.qhid'+no).val(TeX);
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub,"qout"+no]);
+
+            }
+            window.refreshCheck = function () {
+                UpdateMath(document.getElementById("MathInput").value);
+                if (document.getElementById('chk').checked) {
+                    document.getElementById("TeXWrap").style.display = "block";
+                } else {
+
+                    document.getElementById("TeXWrap").style.display = "none";
+                }
+            }
+
+        };
     </script>
 
 </body>

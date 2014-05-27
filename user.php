@@ -44,6 +44,17 @@
     #subjects .subjects-item .subjects-link .caption .caption-content {
         top: 20%;
     }
+    .topic{
+        padding: 20px;
+        box-shadow: 0px 0px 2px #ccc;
+        margin: 10px;
+        display: block;
+        color: inherit;
+    }
+    .topic:hover , .topic:focus {
+        text-decoration: none;
+        color: inherit;
+    }
     </style>
 
 </head>
@@ -178,7 +189,7 @@
                             while($row=mysqli_fetch_assoc($q)){
                                 $glrank=0;
                                 $cityrank=0;
-                                $slevel=0;
+                                $slevel=1;
                                 if(isset($global[$row['subject_id']]))
                                 {
                                     $glrank=$global[$row['subject_id']];
@@ -287,13 +298,19 @@
     <!-- subjects Modals -->
      <?php
      $q=mysqli_query($con,"select * from subjects");
-        $global=json_decode($data['topic_global'],true);
-        $city=json_decode($data['topic_city'],true);
+        $global=json_decode($data['subject_global'],true);
+        $city=json_decode($data['subject_city'],true);
         $level=json_decode($data['subject_level'],true);
+
+        $tglobal=json_decode($data['topic_global'],true);
+        $tcity=json_decode($data['topic_city'],true);
+        $tlevel=json_decode($data['topic_level'],true);
+
         while($row=mysqli_fetch_assoc($q)){
 
             $glrank=0;
             $cityrank=0;
+            $slevel=1;
             if(isset($global[$row['subject_id']]))
             {
                 $glrank=$global[$row['subject_id']];
@@ -310,9 +327,9 @@
             else{
                 $city[$row['subject_id']]=0;
             }
-            if(isset($clevel[$row['subject_id']]))
+            if(isset($level[$row['subject_id']]))
             {
-                $level=$global[$row['subject_id']];
+                $slevel=$global[$row['subject_id']];
             }
             else{
                 $level[$row['subject_id']]=0;
@@ -328,24 +345,78 @@
                     </div>
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-8 col-lg-offset-2">
+                            <div class="col-lg-10 col-lg-offset-1">
                                 <div class="modal-body">
                                     <h2>'.$row['name'].'</h2>
                                     <hr class="star-primary">
-                                    <img src="img/subjectimg/'.$row['name'].'.png" class="img-responsive img-centered" alt="">
                                     <p>'.$row['info'].'</p>
 
-                                    <br>
+                                    <br>';
+                        $q1=mysqli_query($con,'select * from topics where subject_id="'.$row['subject_id'].'"');
+                        $i=0;
+                        while($col=mysqli_fetch_assoc($q1)){
+                            $tglrank=0;
+                                $tcityrank=0;
+                                $tslevel=1;
+                                if(isset($tglobal[$col['topic_id']]))
+                                {
+                                    $tglrank=$tglobal[$col['topic_id']];
 
+                                }
+                                else{
+                                    $tglobal[$col['topic_id']]=0;
+                                    mysqli_query($con,"update user set topic_global='".json_encode($tglobal)."' where email='".$data['email']."'");
+                                }
+
+                                if(isset($tcity[$col['topic_id']]))
+                                {
+                                    $tcityrank=$tglobal[$col['topic_id']];
+                                }
+                                else{
+                                    $tcity[$col['topic_id']]=0;
+                                    mysqli_query($con,"update user set topic_city='".json_encode($tcity)."' where email='".$data['email']."' ");
+                                }
+                                if(isset($tlevel[$col['topic_id']]))
+                                {
+                                    $tslevel=$tglobal[$col['topic_id']];
+                                }
+                                else{
+                                    $tlevel[$col['topic_id']]=0;
+                                    mysqli_query($con,"update user set topic_level='".json_encode($tlevel)."'  where email='".$data['email']."'");
+                                }
+
+                            if($i%2==0)
+                                echo '<div class="row">';
+                            echo '<div class = "col-md-6"><div href="#" class="topic">
+                            <h4>'.$col['name'].'</h4>
+                            '.$col['info'].'<br>
+                            Global Rank : '.$tglrank.'
+                            <br>
+                            City Rank: '.$tcityrank.'
+                            <br>
+                            Level: '.$tslevel.'
+                            <br>
+                            <a href="practice.php?t='.$col['topic_id'].'&s='.$row['subject_id'].'">
+                             <button   class="btn btn-default btn-sm"><i class="fa fa-sign-in"></i> Begin Practicing
+                            </button></a></div></div>';
+                            if($i%2==1)
+                                echo '</div>';
+                            $i++;
+
+                        }
+                        if($i%2==1)
+                            echo '</div>';  
+                        echo '    <hr>    
                                     <h4>Your rankings in this subject</h4>
                                     <h5>
                                          <span class="glyphicon glyphicon-star"></span> Global : <b>'.$glrank.'</b>
                                     </h5>
                                     <h5>
                                          <span class="glyphicon glyphicon-star"></span> City : <b>'.$cityrank.'</b>
-                                    </h5>
+                                    </h5> ';
+
                                     
-                                    <button type="button" class="btn btn-default"><i class="fa fa-sign-in"></i> Start</button>
+                        echo '            
 
                                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
 

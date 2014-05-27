@@ -2,6 +2,7 @@
     include "php/dbconnect.php";
     $admin=0;
     session_start();
+    
     if(isset($_SESSION['user-email'])){
 
         $user=$_SESSION['user-email'];
