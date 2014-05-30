@@ -435,16 +435,19 @@
 
         $("#question").submit(function(e){
             e.preventDefault();
+            var subj=$('#subject').val();
             var formData = new FormData($('#question')[0]);
-            var str= $('#question').serialize();
+            var str= $('#question').serialize(),topj=$("#course").val();
             $.ajax({
                 url: 'php/question-upload.php?'+str,  //Server script to process data
                 type: 'POST',
                 success: function(data){
                     if(data=="done"){
                         $("#question")[0].reset();
-                        setcourse();
                         $('.qout').html("");
+                        $('#subject').val(subj);
+                        setcourse();
+                        $("#course").val(topj);
                     }
                     else{
                         alert(data);

@@ -52,7 +52,10 @@ include "encrypt.php";
   	if(strtolower($response)==mysqli_fetch_assoc($query)['answer']){
   		$correct=1;
   		$data['response']="Correct Answer !❀";
-  		$last20['1']=1;
+  		if($diff<=(120+(60*$topic_level)))
+  			$last20['1']=1;
+  		else
+  			$last20['1']=0;
   	}
   	else{
   		$data['response']="Oops Wrong Answer!";
@@ -74,6 +77,8 @@ include "encrypt.php";
 	  		$all_topic_level[$data['topic']]=$topic_level+1;
 
 	  		mysqli_query($con,'update user set topic_level="'.mysqli_real_escape_string($con,json_encode($all_topic_level)).'" , accuracy="{}" where uid="'.$user['uid'].'"');
+
+	  		$data['error']=2;
 	  	}
 
   	}

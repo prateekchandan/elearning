@@ -42,7 +42,9 @@
             $images[$key]=0;
         }
     }
-
+    foreach ($_GET as $key => $value) {
+        $_GET[$key]=$str = iconv("UTF-8", "ASCII//TRANSLIT", $value);
+    }
     if($stmt = $mysqli->prepare("insert into questions (`id`,`subject_id`,`topic_id`,`description`,`pic`,`cha`,`pica`,`chb`,`picb`,`chc`,`picc`,`chd`,`picd`,`answer`,`level`) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"))
     {
 

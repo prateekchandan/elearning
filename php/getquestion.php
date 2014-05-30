@@ -61,6 +61,12 @@ include "encrypt.php";
     unset($data['subject_id']);
     unset($data['topic_id']);
     $data['servedtime']=time();
-    echo json_encode($data);
+
+    foreach ($data as $key => $value) {
+        $data[$key]=$str = iconv("UTF-8", "ASCII//TRANSLIT", $value);
+    }
+    $ret=json_encode($data);
+   
+    echo $ret;
 
 ?>

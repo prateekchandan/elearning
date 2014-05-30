@@ -61,10 +61,10 @@
     <!--link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'-->
     <style type="text/css">
         .questiontext{
-            font-size: 2em;
+            font-size: 1.4em;
         }
         .answertext{
-            font-size: 1.4em;
+            font-size: 1.1em;
             padding: 10px;
         }
         .regular-radio {
@@ -275,7 +275,9 @@
                 id:data['id'],
                 response:'e',
                 topic:data['topic'],
-                subject:data['subject']
+                subject:data['subject'],
+                error:0
+
             }
             jQuery.ajax({
                 url:'php/submitquestion.php',
@@ -302,7 +304,8 @@
                 id:data['id'],
                 response:$('input[type=radio]:checked').val(),
                 topic:data['topic'],
-                subject:data['subject']
+                subject:data['subject'],
+                error:0
             }
             jQuery.ajax({
                 url:'php/submitquestion.php',
@@ -319,6 +322,9 @@
                     datatosub=a;
                     if(datatosub['error']==1){
                         alert('Error while submitting');
+                    }
+                    else if(datatosub['error']==2){
+                       $("#question").html("<br><br><br><br><h3>"+datatosub['response']+"<br><br><br><button class='btn btn-success' onclick='location.reload()'>Next Question</button></h3>");                        
                     }
                     else{
                        $("#question").html("<br><br><br><br><h3>"+datatosub['response']+"<br><br><br><button class='btn btn-success' onclick='loadnextquestion()'>Next Question</button></h3>");                        
