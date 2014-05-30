@@ -42,7 +42,9 @@
             $images[$key]=0;
         }
     }
-    if($stmt = $mysqli->prepare("insert into questions (`id`,`subject_id`,`course_id`,`description`,`pic`,`cha`,`pica`,`chb`,`picb`,`chc`,`picc`,`chd`,`picd`,`answer`,`level`) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+
+    if($stmt = $mysqli->prepare("insert into questions (`id`,`subject_id`,`topic_id`,`description`,`pic`,`cha`,`pica`,`chb`,`picb`,`chc`,`picc`,`chd`,`picd`,`answer`,`level`) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"))
+    {
 
     $stmt->bind_param('ssssssssssssssi', $id, $subject_id, $course_id,$_GET['description'],$images['pic'],$_GET['cha'],$images['pica'],$_GET['chb'],$images['picb'],$_GET['chc'],$images['picc'],$_GET['chd'],$images['picd'],$answer,$level);
 

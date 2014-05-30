@@ -52,7 +52,8 @@
         overflow: auto;
     }
     </style>
-
+     <script type="text/javascript" src="js/mathjax/MathJax.js?config=TeX-AMS_HTML-full">
+    </script>
 </head>
 
 <body id="page-top" class="index">
@@ -414,8 +415,6 @@
     <script src="js/cbpAnimatedHeader.js"></script>
     <script src="js/shezarelearning.js"></script>
     <script type="text/javascript" src="js/mainpage.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full">
-    </script>
     <script src="js/MathToTeX.js"></script>
     <script type="text/javascript"> 
         <?php
@@ -470,6 +469,9 @@
                     ["$", "$"],
                     ["\\(", "\\)"]
                 ]
+            },
+            TeX: {
+              extensions: ["mhchem.js"]
             }
         });
          //

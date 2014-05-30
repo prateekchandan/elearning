@@ -1,5 +1,6 @@
 <?php
     include "php/dbconnect.php";
+    include "php/encrypt.php";
     session_start();
     if(isset($_SESSION['user-email']))
         $user=$_SESSION['user-email'];
@@ -213,7 +214,7 @@
                                     $slevel=$global[$row['subject_id']];
                                 }
                                 else{
-                                    $level[$row['subject_id']]=0;
+                                    $level[$row['subject_id']]=1;
                                     mysqli_query($con,"update user set subject_level='".json_encode($level)."'  where email='".$data['email']."'");
                                 }
                                 echo   '<div class="col-sm-4 subjects-item">
@@ -381,8 +382,8 @@
                                     $tslevel=$tglobal[$col['topic_id']];
                                 }
                                 else{
-                                    $tlevel[$col['topic_id']]=0;
-                                    mysqli_query($con,"update user set topic_level='".json_encode($tlevel)."'  where email='".$data['email']."'");
+                                    $tlevel[$col['topic_id']]=1;
+                                    mysqli_query($con,"update user set topic_level='".json_encode($tlevel)."' , topic_score='".json_encode($tlevel)."'  where email='".$data['email']."'");
                                 }
 
                             if($i%2==0)
@@ -396,7 +397,7 @@
                             <br>
                             Level: '.$tslevel.'
                             <br>
-                            <a href="practice.php?t='.$col['topic_id'].'&s='.$row['subject_id'].'">
+                            <a href="practice.php?t='.encrypt_decrypt('encrypt',$col['topic_id']).'&s='.encrypt_decrypt('encrypt',$row['subject_id']).'">
                              <button   class="btn btn-default btn-sm"><i class="fa fa-sign-in"></i> Begin Practicing
                             </button></a></div></div>';
                             if($i%2==1)
