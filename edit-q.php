@@ -15,6 +15,18 @@
     if($data['admin']!=1)
         header("Location:./");
 
+    if(!isset($_GET['id']))
+        header("Location:./edit-question.php");
+
+    $qid=mysqli_real_escape_string($con,$_GET['id']);
+
+    $q=mysqli_query($con,"select * from questions where id = '".$qid."'");
+
+    if(mysqli_num_rows($q)==0)
+        header("Location:./edit-question.php");
+
+    $question=mysqli_fetch_assoc($q);
+
 
 ?>
 <!DOCTYPE html>
@@ -27,7 +39,7 @@
     <meta name="description" content="Shezartech e-learning">
     <meta name="author" content="Shezartech e-learning">
 
-    <title>Shezartech | Upload questions</title>
+    <title>Shezartech |Edit questions</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -139,11 +151,12 @@
 
 <!-- Begin Body -->
     <div class="container" style="text-align:center">
-        <h2>UPLOAD QUESTIONS</h2>
+        <h2>EDIT QUESTION</h2>
         <hr class="star-primary">
         <blockquote>You can type the math in LateX or directly your math equation which will be conevrted
         <a class="btn btn-success" data-toggle="modal" data-target="#tutorial" href="#">Tutorial</a></blockquote>
         <form class="col-md-10 col-md-offset-1" enctype="multipart/form-data" id="question">
+            <input type="hidden" name="qid" value="<?php echo $question['id']; ?>">
             <div class="form-group">
                 <label class="col-md-2">Subject:</label>
                 <div class="col-md-4">
@@ -173,14 +186,14 @@
             <div class="form-group">
                 <label class="col-md-2">Question:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,1)" required></textarea>
+                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,1)" required><?php echo $question['description'];?></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2 qout" id="qout1">
-                    Question Preview
+                   <?php echo $question['description'];?>
                 </div>
-                <input type="hidden" class="qhid1" name='description'>
+                <input type="hidden" class="qhid1" name='description' value="<?php echo $question['description'];?>">
             </div>
             <div class="form-group">
                 <label class="col-md-2">Image:</label>
@@ -192,14 +205,14 @@
             <div class="form-group">
                 <label class="col-md-2">Option A:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,2)" required></textarea>
+                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,2)" required><?php echo $question['cha'];?></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2 qout" id="qout2">
-                    
+                    <?php echo $question['cha'];?>
                 </div>
-                <input type="hidden" class="qhid2" name='cha'>
+                <input type="hidden" class="qhid2" name='cha' value="<?php echo $question['cha'];?>">
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
@@ -210,14 +223,14 @@
             <div class="form-group">
                 <label class="col-md-2">Option B:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,3)" required></textarea>
+                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,3)" required><?php echo $question['chb'];?></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2 qout" id="qout3">
-                    
+                   <?php echo $question['chb'];?> 
                 </div>
-                <input type="hidden" class="qhid3" name='chb'>
+                <input type="hidden" class="qhid3" name='chb' value="<?php echo $question['chb'];?>">
 
             </div>
             <div class="form-group">
@@ -229,14 +242,14 @@
             <div class="form-group">
                 <label class="col-md-2">Option C:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,4)" required></textarea>
+                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,4)" required><?php echo $question['chc'];?></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2 qout" id="qout4">
-                    
+                    <?php echo $question['chc'];?>
                 </div>
-                <input type="hidden" class="qhid4" name='chc'>
+                <input type="hidden" class="qhid4" name='chc' value="<?php echo $question['chc'];?>">
 
             </div>
             <div class="form-group">
@@ -248,14 +261,14 @@
             <div class="form-group">
                 <label class="col-md-2">Option D:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,5)" required></textarea>
+                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,5)" required><?php echo $question['chd'];?></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2 qout" id="qout5">
-                    
+                    <?php echo $question['chd'];?>
                 </div>
-                <input type="hidden" class="qhid5" name='chd'>
+                <input type="hidden" class="qhid5" name='chd' value="<?php echo $question['chd'];?>">
 
             </div>
             <div class="form-group">
@@ -265,27 +278,48 @@
             </div>
             <div class="form-group"> 
                 <label class="col-md-12">Correct Answer</label>
+                <?php
+                    $ans_a=0;
+                    $ans_b=0;
+                    $ans_c=0;
+                    $ans_d=0;
+                    if($question['answer']=='a')
+                        $ans_a=1;
+                    else if($question['answer']=='b')
+                        $ans_b=1;
+                    else if($question['answer']=='c')
+                        $ans_c=1;
+                    else if($question['answer']=='d')
+                        $ans_d=1;
+                    else{
+                        $answers=json_decode($question['answer']);
+                        if(in_array('a', $answers)) $ans_a=1;
+                        if(in_array('b', $answers)) $ans_b=1;
+                        if(in_array('c', $answers)) $ans_c=1;
+                        if(in_array('d', $answers)) $ans_d=1;
+                    }
+                ?>
                 <div class="col-md-3">
-                    <input type="checkbox" name="answera" value="a" checked>
+                    <input type="checkbox" name="answera" value="a" <?php if($ans_a) echo 'checked';?>>
                     Option A
                 </div>
                 <div class="col-md-3">
-                    <input type="checkbox" name="answerb" value="b">
+                    <input type="checkbox" name="answerb" value="b" <?php if($ans_b) echo 'checked';?>>
                     Option B
                 </div>
                 <div class="col-md-3">
-                    <input type="checkbox" name="answerc" value="c">
+                    <input type="checkbox" name="answerc" value="c" <?php if($ans_c) echo 'checked';?>>
                     Option C
                 </div>
                 <div class="col-md-3">
-                    <input type="checkbox" name="answerd" value="d">
+                    <input type="checkbox" name="answerd" value="d" <?php if($ans_d) echo 'checked';?>>
                     Option D
                 </div>
             </div>
             <div class="form-group"> 
                 <label class="col-md-2">Estimated Level</label>
                 <div class="col-md-10">
-                    <select name="level" class="form-control">
+                    <select name="level" class="form-control" value="<?php  echo $question['level'];?>">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -442,7 +476,7 @@
             var formData = new FormData($('#question')[0]);
             var str= $('#question').serialize(),topj=$("#course").val();
             $.ajax({
-                url: 'php/question-upload.php?'+str,  //Server script to process data
+                url: 'php/question-edit.php?'+str,  //Server script to process data
                 type: 'POST',
                 success: function(data){
                     if(data=="done"){
@@ -451,6 +485,9 @@
                         $('#subject').val(subj);
                         setcourse();
                         $("#course").val(topj);
+
+                        alert("This question is edited");
+                        window.close();
                     }
                     else{
                         alert(data);
@@ -551,6 +588,14 @@
             }
 
         };
+
+         <?php
+         echo '$("#subject").val("'.$question['subject_id'].'");';
+        ?>
+        setcourse();
+        <?php
+         echo '$("#course").val("'.$question['topic_id'].'");';
+        ?>
     </script>
 
 </body>

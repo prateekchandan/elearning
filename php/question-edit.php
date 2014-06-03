@@ -43,17 +43,13 @@
         }
     }
     foreach ($_GET as $key => $value) {
-        $_GET[$key]=$str = iconv("UTF-8", "ASCII//TRANSLIT", $value);
+        $value = iconv("UTF-8", "ASCII//TRANSLIT", $value);
+        $_GET[$key] = mysqli_real_escape_string($con,$value);
     }
-    if($stmt = $mysqli->prepare("insert into questions (`id`,`subject_id`,`topic_id`,`description`,`pic`,`cha`,`pica`,`chb`,`picb`,`chc`,`picc`,`chd`,`picd`,`answer`,`level`) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"))
-    {
 
-    $stmt->bind_param('ssssssssssssssi', $id, $subject_id, $course_id,$_GET['description'],$images['pic'],$_GET['cha'],$images['pica'],$_GET['chb'],$images['picb'],$_GET['chc'],$images['picc'],$_GET['chd'],$images['picd'],$answer,$level);
-
-    $n=mysqli_fetch_assoc(mysqli_query($con,"select * from envar where `key`='qno'"))['value'];
     $subject_id=$_GET['subject'];
     $course_id=$_GET['course'];
-    $id=$subject_id.$course_id.$n;
+    $id=$_GET['qid'];
     $answer_array=array();
     if(isset($_GET['answera']))
         array_push($answer_array, 'a');
@@ -65,13 +61,20 @@
         array_push($answer_array, 'd');
     $answer=json_encode($answer_array);
     $level=$_GET['level'];
+
+    $answer=mysqli_real_escape_string($con,$answer);
+
+    $q="update questions set `subject_id`='".$subject_id."' 
+            , `topic_id` ='".$course_id."' ,`description`='".$_GET['description']."'
+            ,`pic`='".$images['pic']."',`cha`='".$_GET['cha']."',`pica`='".$images['pica']."'
+            ,`chb`='".$_GET['chb']."',`picb`='".$images['picb']."',`chc`='".$_GET['chc']."'
+            ,`picc`='".$images['picc']."',`chd`='".$_GET['chd']."',`picd`='".$images['picd']."'
+            ,`answer`='".$answer."',`level`='".$level."' where id='".$_GET['qid']."' ";
     
-    $stmt->execute();
+    mysqli_query($con,$q);
+
     echo "done";
-    mysqli_query($con,"update envar set value='".($n+1)."' where `key`='qno'");
-    }
-    else{
-        echo "failed";
-    }
+
+
 
 ?>

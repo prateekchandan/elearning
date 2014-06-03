@@ -106,6 +106,9 @@
                         <a href="./question.php">Add questions</a>
                     </li>
                     <li class="page-scroll">
+                        <a href="./edit-question.php">Edit questions</a>
+                    </li>
+                    <li class="page-scroll">
                         <?php
                             if($user){
                                 echo '<li class="dropdown">

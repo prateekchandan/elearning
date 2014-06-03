@@ -13,6 +13,9 @@
 
     $data=mysqli_fetch_assoc($q);
 
+    if($data['admin']==1)
+        $admin=1;
+
 
 ?>
 <!DOCTYPE html>
@@ -111,7 +114,15 @@
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                       Account <span class="caret"></span>
                                     </a>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu">';
+                                    if($admin==1){
+                                        echo '
+                                        <li><a href="question.php">Add question</a></li>
+                                        <li><a href="subject.php">Manage topics</a></li>
+                                        <li><a href="./edit-question.php">Edit questions</a></li>
+                                        ';
+                                      }
+                                    echo '
                                       <li><a href="user.php">View Account</a></li>
                                       <li><a href="logout.php">Logout</a></li>
                                     </ul>

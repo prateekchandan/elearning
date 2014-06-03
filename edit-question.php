@@ -27,7 +27,7 @@
     <meta name="description" content="Shezartech e-learning">
     <meta name="author" content="Shezartech e-learning">
 
-    <title>Shezartech | Upload questions</title>
+    <title>Shezartech | Edit questions</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -71,6 +71,11 @@
          }
          .qout{
             text-align: left;
+         }
+         img{
+            margin: 10px;
+            max-height: 200px;
+            border-radius: 10px;
          }
         </style>
     </head>
@@ -139,11 +144,8 @@
 
 <!-- Begin Body -->
     <div class="container" style="text-align:center">
-        <h2>UPLOAD QUESTIONS</h2>
+        <h2>Edit QUESTIONS</h2>
         <hr class="star-primary">
-        <blockquote>You can type the math in LateX or directly your math equation which will be conevrted
-        <a class="btn btn-success" data-toggle="modal" data-target="#tutorial" href="#">Tutorial</a></blockquote>
-        <form class="col-md-10 col-md-offset-1" enctype="multipart/form-data" id="question">
             <div class="form-group">
                 <label class="col-md-2">Subject:</label>
                 <div class="col-md-4">
@@ -170,135 +172,9 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-md-2">Question:</label>
-                <div class="col-md-10">
-                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,1)" required></textarea>
-                </div>
+            <div class="col-md-12" id="allques">
+                
             </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2 qout" id="qout1">
-                    Question Preview
-                </div>
-                <input type="hidden" class="qhid1" name='description'>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2">Image:</label>
-                <div class="col-md-10">
-                    <input type="file" name="pic" accept="image/*">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-2">Option A:</label>
-                <div class="col-md-10">
-                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,2)" required></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2 qout" id="qout2">
-                    
-                </div>
-                <input type="hidden" class="qhid2" name='cha'>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2">
-                    <input type="file" name="pica" accept="image/*">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-2">Option B:</label>
-                <div class="col-md-10">
-                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,3)" required></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2 qout" id="qout3">
-                    
-                </div>
-                <input type="hidden" class="qhid3" name='chb'>
-
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2">
-                    <input type="file" name="picb" accept="image/*">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-2">Option C:</label>
-                <div class="col-md-10">
-                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,4)" required></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2 qout" id="qout4">
-                    
-                </div>
-                <input type="hidden" class="qhid4" name='chc'>
-
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2">
-                    <input type="file" name="picc" accept="image/*">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-2">Option D:</label>
-                <div class="col-md-10">
-                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,5)" required></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2 qout" id="qout5">
-                    
-                </div>
-                <input type="hidden" class="qhid5" name='chd'>
-
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2">
-                    <input type="file" name="picd" accept="image/*">
-                </div>
-            </div>
-            <div class="form-group"> 
-                <label class="col-md-12">Correct Answer</label>
-                <div class="col-md-3">
-                    <input type="checkbox" name="answera" value="a" checked>
-                    Option A
-                </div>
-                <div class="col-md-3">
-                    <input type="checkbox" name="answerb" value="b">
-                    Option B
-                </div>
-                <div class="col-md-3">
-                    <input type="checkbox" name="answerc" value="c">
-                    Option C
-                </div>
-                <div class="col-md-3">
-                    <input type="checkbox" name="answerd" value="d">
-                    Option D
-                </div>
-            </div>
-            <div class="form-group"> 
-                <label class="col-md-2">Estimated Level</label>
-                <div class="col-md-10">
-                    <select name="level" class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                    </select>
-                </div>
-            </div>
-            
-            <button class="btn btn-success">SUBMIT</button>
-        </form>
     </div>
  
     <div class="scroll-top page-scroll visible-xs visble-sm">
@@ -349,68 +225,6 @@
             </div>
         </div>
     </footer>
-  <div class="subjects-modal modal fade" id="tutorial" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="close-modal" data-dismiss="modal">
-                    <div class="lr">
-                        <div class="rl">
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="modal-body">
-                                <h2>Instruction to type Math</h2>
-                                <hr class="star-primary">
-                               <ul>
-                                   <li>
-                                       Type your question directly into the text boxes and to include math equations type inside $ \$ $ .. $ \$ $
-                                       <br>
-                                       For Example : Find the value of $ \$ $ (m_0)/(sqrt(1-(v^2)/(c^2))) $ \$ $ becomes $\frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}$
-                                       
-                                    </li>
-                                    <li>You can type wide range of greek characters and all other in math equations. <br>Try writing these:
-                                        <ul>
-                                            <li>e^pii+1=0;  </li>
-                                            <li>(kq_1 q_2)/(r^2) </li>
-                                            <li>(Gm_1 m_2)/(r^2)</li>
-                                            <li>nabla.E=rho/(epsilon_0)</li>
-                                            <li>nabla*E= -(∂B)/(∂t)  </li>
-                                            <li>nabla*B=mu_0 J+mu_0 epsilon_0(∂E)/(∂t) </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        If you want to write more complex mathematical expressions like integrals , matrices etc.. you can include latex formatting in your page with a '$$' at end and beginning of your latex code
-                                        for example<br>
-                                        <code>$$\begin{bmatrix}1&2\\3&4\\ \end{bmatrix}$$</code> will become $\begin{bmatrix}1&2\\3&4\\ \end{bmatrix} $<br>
-                                        and <code>$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$</code> 
-                                        will become $\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$
-                                    </li>
-                                    <li>
-                                        For info on typing math refer them 
-                                        <ul>
-                                            <li><a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank">Resource 1</a></li>
-                                            <li><a href="http://www.calculatorium.com/mathjax-quick-start-tutorial/" target="_blank">Resource 2</a></li>
-                                            <li><a href="http://www.mathjax.org/resources/articles-and-presentations/integrating-mathjax/" target="_blank">Resource 3</a></li>
-                                        </ul>
-                                    </li>
-                               </ul>
-                               Note : To Get latex code of any of the math expression right click on the expression $\rightarrow$ select show math as $\rightarrow$ show tex commands
-                           
-                               
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-    
-  
-  
-
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
@@ -427,7 +241,7 @@
     <script type="text/javascript">
         $("#courses .courses-item .courses-link .caption .caption-content").css("height",$("#courses .courses-item .courses-link .caption .caption-content").css("width"));
         function setcourse() {
-            var str='',sub=$("#subject").val();
+            var str="<option value=''>Chose topic</option>",sub=$("#subject").val();
             for (var i = 0; i < subjects[sub].length; i++) {
                 str+="<option value='"+subjects[sub][i][0]+"'>"+subjects[sub][i][1]+"</option>";
             };
@@ -436,36 +250,27 @@
         document.getElementById('subject').onchange=setcourse;
         setcourse();
 
-        $("#question").submit(function(e){
-            e.preventDefault();
-            var subj=$('#subject').val();
-            var formData = new FormData($('#question')[0]);
-            var str= $('#question').serialize(),topj=$("#course").val();
-            $.ajax({
-                url: 'php/question-upload.php?'+str,  //Server script to process data
-                type: 'POST',
-                success: function(data){
-                    if(data=="done"){
-                        $("#question")[0].reset();
-                        $('.qout').html("");
-                        $('#subject').val(subj);
-                        setcourse();
-                        $("#course").val(topj);
-                    }
-                    else{
-                        alert(data);
-                    }
-                },
-                error: function(data){
-                    alert("error");
-                },
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false
-            });
+       $("#course").change(function(){
+            if($(this).val()==''){
+                return;
+            }
 
-        })
+            jQuery.ajax({
+                url:"php/getallquestion.php",
+                data:{
+                        subject:$("#subject").val(),
+                        course:$("#course").val()
+                    },
+                type:"post",
+                success:function(data){
+                    $("#allques").html(data);
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub,"allques"]);
+                },
+                error:function(){
+                    alert("Network error");
+                }
+            })
+       })
     </script>
 
     <script type="text/x-mathjax-config">

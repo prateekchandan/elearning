@@ -9,9 +9,7 @@
         $q=mysqli_query($con,"select * from user where email = '".$user."'");
         if(mysqli_num_rows($q)>0){
         
-            $data=mysqli_fetch_assoc($q);
-            if($data['admin']==1)
-                $admin=1;
+            header("Location:./user.php");
         }
     }
     else
@@ -92,6 +90,7 @@
                                         echo '
                                         <li><a href="question.php">Add question</a></li>
                                         <li><a href="subject.php">Manage topics</a></li>
+                                        <li><a href="./edit-question.php">Edit questions</a></li>
                                         ';
                                       }
                                       echo '
@@ -298,8 +297,6 @@
                             <hr class="star-primary">
                             <img src="img/subjectimg/'.$row['name'].'.png" class="img-responsive img-centered" alt="">
                             <p>'.$row['info'].'</p>
-                            
-                            <button type="button" class="btn btn-default"><i class="fa fa-sign-in"></i> Start</button>
 
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
 
