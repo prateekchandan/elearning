@@ -67,63 +67,61 @@
             font-size: 1.1em;
             padding: 10px;
         }
-        .regular-radio {
-            display: none;
+        .slideThree{
+            font-size: 1.2em;
+            padding: 10px;
         }
-        
-        label {
-            display: inline;
-            margin-bottom: -3px;
+        input[type=checkbox] {
+        display: none;
         }
-        .regular-radio + label {
-            -webkit-appearance: none;
-            background-color: #fafafa;
-            border: 1px solid #cacece;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
-            padding: 9px;
-            border-radius: 50px;
+        label:before {
+            content: "";
             display: inline-block;
-            position: relative;
-        }
 
-        .regular-radio:checked + label:after {
-            content: ' ';
-            width: 12px;
-            height: 12px;
-            border-radius: 50px;
+            width: 30px;
+            height: 23px;
+
+            margin-right: 10px;
+            padding-bottom: 3px;
+            padding-top: 3px;
             position: absolute;
-            top: 3px;
-            background: #99a1a7;
-            box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
-            text-shadow: 0px;
-            left: 3px;
-            font-size: 32px;
+            left: 0px;
+            top:0px;
+            background-color: #aaa;
+            box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
         }
+        label {
+       
+        cursor: pointer;
+        position: relative;
+        padding-left: 25px;
+        margin-right: 15px;
+        font-size: 13px;
+    }
+    .checkbox label:before {
+        border-radius: 3px;
+    }  
+    input[type=checkbox]:checked + label:before {
+        content: "YES";
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+        font-size: 15px;
+        color: #f3f3f3;
+        text-align: center;
+        line-height: 15px;
+        margin-top: -11px;
+        background-color: rgb(0, 54, 192);
+    }
+    input[type=checkbox] + label:before {
+        content: "NO";
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+        font-size: 15px;
+        color: #f3f3f3;
+        text-align: center;
+        line-height: 15px;
+        margin-top: -11px;
+    }  
 
-        .regular-radio:checked + label {
-            background-color: #e9ecee;
-            color: #99a1a7;
-            border: 1px solid #adb8c0;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1), inset 0px 0px 10px rgba(0,0,0,0.1);
-        }
 
-        .regular-radio + label:active, .regular-radio:checked + label:active {
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .big-radio + label {
-            padding: 16px;
-        }
-
-        .big-radio:checked + label:after {
-            width: 24px;
-            height: 24px;
-            left: 4px;
-            top: 4px;
-        }
-        h3{
-            text-transform: inherit;
-        }
     </style>
 </head>
 
@@ -253,10 +251,10 @@
                     else{
                         var str='';
                         str+='<form id="newquestion" onsubmit="return false;"><div class="questiontext">'+data['description']+'</div>';
-                        str+='<div class="answertext"><input type="radio" id="ans1" class="regular-radio" name="ans" value="a"> <label for="ans1"></label> <span class="ansp">'+data['cha']+'</span></div>';
-                        str+='<div class="answertext"><input type="radio" id="ans2" class="regular-radio" name="ans" value="b"> <label for="ans2"></label> <span  class="ansp">'+data['chb']+'</span></div>';
-                        str+='<div class="answertext"><input type="radio" id="ans3" class="regular-radio" name="ans" value="c"> <label for="ans3"></label> <span  class="ansp">'+data['chc']+'</span></div>';
-                        str+='<div class="answertext"><input type="radio" id="ans4" class="regular-radio" name="ans" value="d"> <label for="ans4"></label> <span  class="ansp">'+data['chd']+'</span></div>';
+                        str+='<div class="slideThree"><input type="checkbox" id="ans1"  name="ans" value="a"> <label for="ans1"></label><span>'+data['cha']+'</span></div>';
+                        str+='<div class="slideThree"><input type="checkbox" id="ans2"  name="ans" value="b"> <label for="ans2"></label><span>'+data['chb']+'</span></div>';
+                        str+='<div class="slideThree"><input type="checkbox" id="ans3"  name="ans" value="c"> <label for="ans3"></label><span>'+data['chc']+'</span></div>';
+                        str+='<div class="slideThree"><input type="checkbox" id="ans4"  name="ans" value="d"> <label for="ans4"></label><span>'+data['chd']+'</span></div>';
                         str+='<div class="text-center"><button style="margin-right:20px" class="btn btn-success" type="button" id="btn-submit" onclick="submitans()">Submit!</button><button class="btn btn-success" type="button" id="btn-skip" onclick="skipans()">Skip!</button></div></form><div id="msg"></div>';
                         $("#question").html(str);
                         MathJax.Hub.Queue(["Typeset", MathJax.Hub,"question"]);
@@ -293,16 +291,32 @@
          }
 
          function submitans(){
-            if($('input[type=radio]:checked').size() == 0){
+            var ans=[];
+            if($("#ans1").is(":checked")){
+                ans.push('a');
+            }
+            if($("#ans2").is(":checked")){
+                ans.push('b');
+            }
+            if($("#ans3").is(":checked")){
+                ans.push('c');
+            }
+            if($("#ans4").is(":checked")){
+                ans.push('d');
+            }
+
+            if(ans.length == 0){
                 $('#btn-submit').addClass('btn-danger');
                 $('#msg').addClass('well');
                 $('#msg').html('Please select an answer')
                 return false;
             }
+             ans=JSON.stringify(ans);
+            
             var datatosub={
                 time:data['servedtime'],
                 id:data['id'],
-                response:$('input[type=radio]:checked').val(),
+                response:ans,
                 topic:data['topic'],
                 subject:data['subject'],
                 error:0

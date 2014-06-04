@@ -15,12 +15,16 @@ include "encrypt.php";
     $data=$_POST;
 
     $user=mysqli_fetch_assoc($q);
+
     if(!isset($data['error'])){
     	die('{error:1}');
     }
 
+    $all_topic_level=json_decode($user['topic_level'],true);
+    $topic_level=$all_topic_level[$data['topic']];
+
     $data['error']=0;
-    $q=mysqli_query($con , 'SELECT * FROM questions where topic_id="'.$data['topic'].'" && subject_id="'.$data['subject'].'"');
+    $q=mysqli_query($con , 'SELECT * FROM questions where topic_id="'.$data['topic'].'" && subject_id="'.$data['subject'].'" && level="'.$topic_level.'"');
     
     if(mysqli_num_rows($q)==0){
     	$data['error']=2;
@@ -35,7 +39,7 @@ include "encrypt.php";
      fclose($file);
     }
   
-  $qtext=json_decode(file_get_contents($filename),true);
+    $qtext=json_decode(file_get_contents($filename),true);
     
     $all=[];
     
@@ -44,8 +48,6 @@ include "encrypt.php";
         {
             array_push($all, $row);
         }
-
-
     }
     
     if(sizeof($all)==0){

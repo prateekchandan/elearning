@@ -186,7 +186,7 @@
             <div class="form-group">
                 <label class="col-md-2">Question:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,1)" required><?php echo $question['description'];?></textarea>
+                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,1)" required><?php echo str_replace('$', '$$', $question['description']);?></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -205,7 +205,8 @@
             <div class="form-group">
                 <label class="col-md-2">Option A:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,2)" required><?php echo $question['cha'];?></textarea>
+                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,2)" required>
+                    <?php echo str_replace('$', '$$', $question['cha']);?></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -223,7 +224,8 @@
             <div class="form-group">
                 <label class="col-md-2">Option B:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,3)" required><?php echo $question['chb'];?></textarea>
+                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,3)" required>
+                    <?php echo str_replace('$', '$$', $question['chb']);?></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -242,7 +244,8 @@
             <div class="form-group">
                 <label class="col-md-2">Option C:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,4)" required><?php echo $question['chc'];?></textarea>
+                    <textarea class="form-control"  onKeyUp="UpdateMath(this.value,4)" required>
+                    <?php echo str_replace('$', '$$', $question['chc']);?></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -261,7 +264,8 @@
             <div class="form-group">
                 <label class="col-md-2">Option D:</label>
                 <div class="col-md-10">
-                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,5)" required><?php echo $question['chd'];?></textarea>
+                    <textarea class="form-control" onKeyUp="UpdateMath(this.value,5)" required>
+                    <?php echo str_replace('$', '$$', $question['chd']);?></textarea>
                 </div>
             </div>
             <div class="form-group">
