@@ -49,7 +49,7 @@
     <meta name="description" content="Shezartech e-learning">
     <meta name="author" content="Shezartech e-learning">
 
-    <title>Shezartech | e-learning</title>
+    <title>IITJEE Academy | e-learning</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -137,7 +137,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./">Shezartech</a>
+                <a class="navbar-brand" href="./">IITJEE Academy</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->

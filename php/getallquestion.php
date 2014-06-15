@@ -47,8 +47,29 @@
     	if($row['picd']!="0"){
     		echo '<img src="'.$row['picd'].'">';
     	}
-    	echo '<div class="row"><a href="./edit-q.php?id='.$row['id'].'"  target=_blank class="btn btn-default btn-sm">Edit this</a></div>';
-    	echo '</div>';
+        $ans ='';
+        foreach (json_decode($row['answer']) as $value) {
+            if($ans=='')
+                $ans.=$value;
+            else
+                $ans .=  "&amp; ".$value;
+        }
+        echo '<br><div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                Answer : '.$ans.'
+            </div>
+            <div class="col-md-3">
+            Level '.$row['level'].'
+            </div>
+        </div>';
+        echo '<div class="row"><div class="col-md-6"><a href="./edit-q.php?id='.$row['id'].'"  target=_blank class="btn btn-default btn-sm">Edit this</a></div>';
+        if($row['checked'])
+            echo '<div class="col-md-6"><input type="checkbox" onchange="changecheck(\''.$row['id'].'\')" checked> Question verified</div>';
+        else
+            echo '<div class="col-md-6"><input type="checkbox" onchange="changecheck(\''.$row['id'].'\')"> Question verified</div>';
+        
+        echo '</div></div>';
 
     }
 

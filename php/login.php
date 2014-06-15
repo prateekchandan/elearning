@@ -5,7 +5,9 @@
 	foreach ($_POST as $key => $value) {
 		$_POST[$key]=mysqli_real_escape_string($con,$_POST[$key]);
 	}
+
 	$q=mysqli_query($con,"select * from user where email = '".$_POST['email']."'");
+	
 	if(mysqli_num_rows($q)==0){
 		die('emailerr');
 	}

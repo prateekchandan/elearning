@@ -26,7 +26,7 @@
     <meta name="description" content="Shezartech e-learning">
     <meta name="author" content="Shezartech e-learning">
 
-    <title>Shezartech | e-learning</title>
+    <title>IITJEE Academy | e-learning</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -58,7 +58,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./">Shezartech</a>
+                <a class="navbar-brand" href="./">IITJEE Academy</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -68,13 +68,13 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#subjects">subjects</a>
+                        <a href="#about-iitjee">About IITJEE Academy</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">Get Started</a>
+                        <a href="#working">How it works</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#contact">Contact</a>
+                        <a href="#helping">How it helps</a>
                     </li>
                     <li class="page-scroll">
                         <?php
@@ -99,7 +99,7 @@
                                   </li> ';
                             }
                             else{
-                              echo '<a data-toggle="modal" data-target="#login-modal" href="#">Login</a>  ';
+                              echo '<a data-toggle="modal" data-target="#login-modal" href="#">Login/signup</a>  ';
                             } 
                         ?>
                     </li>
@@ -114,161 +114,152 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive" style="border-radius:50%" src="img/profile.png" alt="">
-                    <div class="intro-text">
+                    <!--img class="img-responsive" style="border-radius:50%" src="img/profile.png" alt=""-->
+                    <!--div class="intro-text">
                         <span class="name">E-learning</span>
                         <hr class="star-light">
                         <span class="skills">Engage . Enhance . Empower</span>
+                    </div-->
+                    <div class="intro-text">
+                        <span class="name">Practise that makes you an IITIAN Seven steps to gear up in the way, just appropriate for you.</span>
+                        <hr class="star-light">
+                        <span class="skills">Dynamic and adaptive practise that serves you according to your capabilities and realise you run harder at the facets where you necessitate to pay more attention.</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <section id="subjects">
+    <section id="about-iitjee">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Running subjects</h2>
+                    <h2>About IITJEE Academy:</h2>
                     <hr class="star-primary">
                 </div>
             </div>
             <div class="row">
-            <?php
-                $q=mysqli_query($con,"select * from subjects");
-                    while($row=mysqli_fetch_assoc($q)){
-                     echo   '<div class="col-sm-4 subjects-item">
-                            <a href="#" data-target="#subjectsModal'.$row['subject_id'].'" class="subjects-link" data-toggle="modal">
-                                <div class="caption">
-                                    <div class="caption-content">
-                                        <i class="fa fa-search-plus fa-2x"></i><br><br><h4>'.$row['name'].'</h4>
-                                    </div>
-                                </div>
-                                <img src="img/subjectimg/'.$row['name'].'.png" class="img-responsive" alt="" />
-                            </a>
-                        </div>';
-                    }
-            ?>
+                <ul>
+                    <li>
+                        <p>IITJEE Practise Package has been designed by top ranking IITIANS who are acquaintedwith the
+                        strategies utilised in the exam preparations and lay down the path to gear your preparations for the same.</p>
+                    </li>
+                    <li>
+                        <p>Our motto is to ease and direct your efforts in a correct direction while making sure to adjust it to your needs.</p>
+                    </li>
+                    <li>
+                        <p>The Module is self-paced, Adaptive, most comprehensive practice package</p>
+                    </li>
+                    <li>
+                        <p>Helps you to bridge the gaps to get maximum returns on the time invested</p>
+                    </li>
+                    <li>
+                        <p>Money back guarantee</p>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <section class="success" id="about">
+    <section class="success" id="working">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Get Started</h2>
+                    <h2>How it Works</h2>
                     <hr class="star-light">
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-lg-offset-2">
-                    <p>In this e-learning system we provide a vast range of cources to practice and learn and boost your knowledge.To start this you need to login to the site and then chose any one subject to start with and then you can begin learning</p>
-                </div>
-                <div class="col-lg-4">
-                    <p>We are a forward thinking company that offers end to end e-Learning consultancy and solutions. From analyzing learner needs to generating learning reports, we are passionate and capable of developing custom learning solutions in record turn around times.</p>
-                </div>
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <?php
-                        if($user)
-                            echo '
-                            <a href="#subjects" class="btn btn-lg btn-outline">
-                                <i class="fa fa-sign-in"></i> Get Started
-                            </a>';
-                        else
-                            echo '
-                            <a  href="#" data-target="#login-modal"  class="btn btn-lg btn-outline" data-toggle="modal">
-                                <i class="fa fa-sign-in"></i> Login to start
-                            </a>';
-                        ?>
-                </div>
+                <ul>
+                    <li>
+                        <p>IITJEE is a Comprehensive coverage of the syllabusfor IIT Join Entrance Examination</p>
+                    </li>
+                    <li>
+                        <p>It comprises of a Deep and exhaustive question bank for each topic at each level.</p>
+                    </li>
+                    <li>
+                        <p>Know your AIR/State Rank</p>
+                    </li>
+                    <li>
+                        <p>You can compare Rankings and Know where you abide.</p>
+                    </li>
+                    <li>
+                        <p>Each question is hand-picked and reviewed by IITians and rankers</p>
+                    </li>
+                    <li>
+                        <p>Find your weak spots and improve speed and accuracy.</p>
+                    </li>
+                    <li>
+                        <p>Goal based adaptive tests arecreated specifically for you.</p>
+                    </li>
+                    <li>
+                        <p>Balances the preparations in all the subjects and topics</p>
+                    </li>
+                    <li>
+                        <p>Tracks the effort required for each topic/ subject to reach the ultimate goal</p>
+                    </li>
+                    <li>
+                        <p>Questions are exam based</p>
+                    </li>
+                    <li>
+                        <p>You can practise at ease of your electronic devices</p>
+                    </li>
+                    <li>
+                        <p>Utilises your time correctly</p>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <section id="contact">
+    <section class="contacts" id="helping">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Contact Us</h2>
+                    <h2>How it Helps</h2>
                     <hr class="star-primary">
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <form role="form" id="contactus">
-                        <div class="row">
-                            <div class="form-group col-xs-12 floating-label-form-group">
-                                <label for="name">Name</label>
-                                <input class="form-control" type="text" name="name" placeholder="Name">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-xs-12 floating-label-form-group">
-                                <label for="email">Email Address</label>
-                                <input class="form-control" type="email" name="email" placeholder="Email Address">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-xs-12 floating-label-form-group">
-                                <label for="message">Message</label>
-                                <textarea placeholder="Message" class="form-control" rows="5"></textarea>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-lg btn-success">Send</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <ul>
+                    <li>
+                        <p>All the candidates start at level 1 and they need to cross 7 levels to reach the goal.</p>
+                    </li>
+                    <li>
+                        <p>The difficulty level increases as the level progresses.</p>
+                    </li>
+                    <li>
+                        <p>Till the candidate is proficient enough to move to the next level the system keeps assigning questions to make him/her practise at that level.</p>
+                    </li>
+                    <li>
+                        <p>If the candidate has attained proficiency at a certain level, the system analyses this automatically and takes the candidate to the next level.</p>
+                    </li>
+                    <li>
+                        <p>Each question is hand-picked and reviewed by IITians and rankers</p>
+                    </li>
+                    <li>
+                        <p>For each subject / topic the system makes sure that practise is made, precisely in the levels where it is most needed.</p>
+                    </li>
+                    <li>
+                        <p>This serves the candidate to use the time in the correct way.</p>
+                    </li>
+                    <li>
+                        <p>We do not provide solutions as we aim in honing your nails while you scramble to find right answers.</p>
+                    </li>
+                    <li>
+                        <p>All questions at all levels and for all topics are based on IITJEE examination pattern, helping the candidate to facilitate the preparations.</p>
+                    </li>
+                    <li>
+                        <p>It is accessible through Desktops, Laptops, mobile phones and Tablets.</p>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
-
-    <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Corporate Office</h3>
-                        <p>Shezar Web Technologies Pvt Ltd
-                            <br>203, Crystal Paradise, Dattaji Salve Road, Off. Veera Desai Road & New Link Road, Andheri (W), Mumbai - 400053, India</p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
-                        <ul class="list-inline">
-                            <li><a href="https://www.facebook.com/pages/Shezar-Tech/494763083907105" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li><a href="https://www.youtube.com/user/TheShezartech" class="btn-social btn-outline"><i class="fa fa-fw fa-youtube"></i></a>
-                            </li>
-                            <li><a href="https://twitter.com/ShezarTech" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li><a href="http://www.linkedin.com/company/shezar-web-technologies-pvt-ltd-" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li><a href="http://www.shezartech.com" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>About Shezartech</h3>
-                        <p>
-                            We are a 12 year old professionally managed e-Learning company. We help organizations to take up the challenge of making learning effective and engaging</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        Copyright &copy; 2014 - Shezar Web Technologies Pvt. Ltd.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    
+    <?php
+        include 'footer.php';
+    ?>
 
     <div class="scroll-top page-scroll visible-xs visble-sm">
         <a class="btn btn-primary" href="#page-top">
