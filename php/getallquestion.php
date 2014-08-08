@@ -25,27 +25,29 @@
 
     $all=mysqli_query($con,'select * from questions where subject_id="'.$_POST['subject'].'" && topic_id="'.$_POST['course'].'" ');
     
+    $ret=array();
     while($row=mysqli_fetch_assoc($all)){
-    	echo '<div class="well row">';
-    	echo '<div class="col-md-12"><h4 style="text-transform: none;font-weight: normal;">'.$row['description'].'</h4></div>';
+    	$str= '<div class="well row" id="'.$row['id'].'">';
+        $str.="<h3>".$row['id']." :</h3>";
+    	$str.= '<div class="col-md-12"><h4 style="text-transform: none;font-weight: normal;">'.$row['description'].'</h4></div>';
     	if($row['pic']!="0"){
-    		echo '<img src="'.$row['pic'].'">';
+    		$str.= '<img src="'.$row['pic'].'">';
     	}
-    	echo '<div class="row"><div class="col-md-6"><b>A</b>. '.$row['cha'].'</div>';
+    	$str.= '<div class="row"><div class="col-md-6"><b>A</b>. '.$row['cha'].'</div>';
     	if($row['pica']!="0"){
-    		echo '<img src="'.$row['pica'].'">';
+    		$str.= '<img src="'.$row['pica'].'">';
     	}
-    	echo '<div class="col-md-6"><b>B</b>. '.$row['chb'].'</div></div>';
+    	$str.= '<div class="col-md-6"><b>B</b>. '.$row['chb'].'</div></div>';
     	if($row['picb']!="0"){
-    		echo '<img src="'.$row['picb'].'">';
+    		$str.= '<img src="'.$row['picb'].'">';
     	}
-    	echo '<div class="row"><div class="col-md-6"><b>C</b>. '.$row['chc'].'</div>';
+    	$str.= '<div class="row"><div class="col-md-6"><b>C</b>. '.$row['chc'].'</div>';
     	if($row['picc']!="0"){
-    		echo '<img src="'.$row['picc'].'">';
+    		$str.= '<img src="'.$row['picc'].'">';
     	}
-    	echo '<div class="col-md-6"><b>D</b>. '.$row['chd'].'</div></div>';
+    	$str.= '<div class="col-md-6"><b>D</b>. '.$row['chd'].'</div></div>';
     	if($row['picd']!="0"){
-    		echo '<img src="'.$row['picd'].'">';
+    		$str.= '<img src="'.$row['picd'].'">';
     	}
         $ans ='';
         foreach (json_decode($row['answer']) as $value) {
@@ -54,7 +56,7 @@
             else
                 $ans .=  "&amp; ".$value;
         }
-        echo '<br><div class="row">
+        $str.= '<br><div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-3">
                 Answer : '.$ans.'
@@ -63,16 +65,18 @@
             Level '.$row['level'].'
             </div>
         </div>';
-        echo '<div class="row"><div class="col-md-6"><a href="./edit-q.php?id='.$row['id'].'"  target=_blank class="btn btn-default btn-sm">Edit this</a></div>';
+        $str.= '<div class="row"><div class="col-md-4"><a href="./edit-q.php?id='.$row['id'].'"  target=_blank class="btn btn-success btn-sm">Edit this</a></div>';
+        $str.= '<div class="col-md-4"><a  onclick="deleteq(\''.$row['id'].'\')" class="btn btn-danger btn-sm">Delete this</a></div>';
         if($row['checked'])
-            echo '<div class="col-md-6"><input type="checkbox" onchange="changecheck(\''.$row['id'].'\')" checked> Question verified</div>';
+            $str.= '<div class="col-md-4"><input type="checkbox" onchange="changecheck(\''.$row['id'].'\')" checked> Question verified</div>';
         else
-            echo '<div class="col-md-6"><input type="checkbox" onchange="changecheck(\''.$row['id'].'\')"> Question verified</div>';
+            $str.= '<div class="col-md-4"><input type="checkbox" onchange="changecheck(\''.$row['id'].'\')"> Question verified</div>';
         
-        echo '</div></div>';
-
+        $str.= '</div></div>';
+        array_push($ret, $str);
     }
 
+    echo json_encode($ret);
 
 
 ?>

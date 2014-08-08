@@ -77,6 +77,9 @@
             max-height: 200px;
             border-radius: 10px;
          }
+         #allques{
+            min-height: 100px;
+         }
         </style>
     </head>
     
@@ -173,7 +176,7 @@
                 </div>
             </div>
             <div class="col-md-12" id="allques">
-                
+                Select a topic to get questions
             </div>
     </div>
  
@@ -197,7 +200,9 @@
     <script type="text/javascript"> 
         <?php
             echo "var subjects=".json_encode($sub).";";
+            
         ?>
+        var questions="";
     </script>
     <script type="text/javascript">
         $("#courses .courses-item .courses-link .caption .caption-content").css("height",$("#courses .courses-item .courses-link .caption .caption-content").css("width"));
@@ -207,14 +212,17 @@
                 str+="<option value='"+subjects[sub][i][0]+"'>"+subjects[sub][i][1]+"</option>";
             };
             $("#course").html(str);
+            $("#allques").html('Select a topic to get questions');
         }
         document.getElementById('subject').onchange=setcourse;
         setcourse();
 
        $("#course").change(function(){
             if($(this).val()==''){
+                $("#allques").html('Select a topic to get questions');
                 return;
             }
+
 
             jQuery.ajax({
                 url:"php/getallquestion.php",
@@ -224,7 +232,32 @@
                     },
                 type:"post",
                 success:function(data){
-                    $("#allques").html(data);
+                    
+                    try{
+                        data=JSON.parse(data);
+                        questions=data;
+                    }
+                    catch(e){
+                        $("#allques").html("No questions");
+                        return;
+                    }
+
+                    if(questions.length==0){
+                        $("#allques").html("No questions");
+                        return;
+                    }
+                    var n=parseInt(questions.length/10)+((i%10==0)?0:1);
+                    var str="<p><b>Showing 1 - "+((10>questions.length)?questions.length:10)+' of ' + questions.length;
+                    str+="&nbsp; &nbsp;  Page: <select value=\"1\" onchange=\"setques(this.value)\" class=\"form-control\" style=\"display: initial;width:90px\" id='pagination'>";
+                    for (var i = 1; i <= n; i++) {
+                       str+='<option value="'+i+'">'+i+'</option>';
+                    };
+                    str+='</select>';
+                    str+='</b></p>  ';
+                    $("#allques").html(str);
+                    for (var i = 0; i < questions.length && i<10; i++) {
+                         $("#allques").append(questions[i]);
+                    };
                     MathJax.Hub.Queue(["Typeset", MathJax.Hub,"allques"]);
                 },
                 error:function(){
@@ -232,6 +265,48 @@
                 }
             })
        })
+
+        function deleteq (id) {
+            if(confirm("Are you sure want to delete this?")){
+            jQuery.ajax({
+                    url:"php/delete-q.php",
+                    data:{
+                           id:id
+                        },
+                    type:"post",
+                    success:function(data){
+                        if(data=="done")
+                        {
+                            $('#'+id).fadeOut(1000);
+                        }
+                    },
+                    error:function(){
+                        alert("Network error");
+                    }
+                })
+            }
+            return false;
+        }
+
+        function setques(id){
+            id=id-1;
+            var n=parseInt(questions.length/10)+((i%10==0)?0:1);
+                    var str="<p><b>Showing "+((id*10)+1)+" - "+( (  ( 10*(id+1))>questions.length)?questions.length:(10*(id+1)))+' of ' + questions.length;
+                    str+="&nbsp; &nbsp; Page: <select onchange=\"setques(this.value)\" class=\"form-control\" style=\"display: initial;width:90px\" id='pagination'>";
+                    for (var i = 1; i <= n; i++) {
+                        if(i==(id+1))
+                            str+='<option value="'+i+'" selected>'+i+'</option>';
+                        else
+                            str+='<option value="'+i+'">'+i+'</option>';
+                    };
+                    str+='</select>';
+                    str+='</b></p>  ';
+                    $("#allques").html(str);
+                    for (var i = 10*id+1; i < questions.length && i< (10* (id+1) ); i++) {
+                         $("#allques").append(questions[i]);
+                    };
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub,"allques"]);
+        }
     </script>
 
     <script type="text/x-mathjax-config">
