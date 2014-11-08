@@ -134,6 +134,25 @@
                             } 
                         ?>
                     </li>
+                    <?
+                        if($admin==1){
+                            ?>
+                                <li class="page-scroll">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        Admin <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="manage-user.php">Manage Users</a></li>
+                                        </ul>
+                                    </li>
+                                    
+                                </li>
+
+                            <?
+
+                        }
+                    ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -178,10 +197,10 @@
                 <h2 id="ranking">Your Current rankings</h2>
                 <div style="padding-left:40px;">
                     <h3>
-                         <span class="glyphicon glyphicon-star"></span> Global : <b><?php   echo $data['globalrank'];?></b>
+                         <span class="glyphicon glyphicon-star"></span> All India Rank : <b><?php   echo $data['globalrank'];?></b>
                     </h3>
                     <h3>
-                         <span class="glyphicon glyphicon-star"></span> City : <b><?php   echo $data['cityrank'];?></b>
+                         <span class="glyphicon glyphicon-star"></span> State : <b><?php   echo $data['cityrank'];?></b>
                     </h3>
                 </div>
                 
@@ -233,8 +252,8 @@
                                             <div class="caption">
                                                 <div class="caption-content">
                                                     <h4>'.$row['name'].'</h4>
-                                                    <h5>Global Rank :'.$glrank.' </h5>
-                                                    <h5>City Rank : '.$cityrank.'</h5>
+                                                    <h5>All India Rank :'.$glrank.' </h5>
+                                                    <h5>State Rank : '.$cityrank.'</h5>
                                                     <h5>Level :'.$slevel.'</h5>
                                                 </div>
                                             </div>

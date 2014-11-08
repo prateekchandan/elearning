@@ -164,8 +164,13 @@
                         <?php
                             $sub=array();
                             $q=mysqli_query($con,"select * from subjects");
+                           
                             while($row=mysqli_fetch_assoc($q)){
-                                echo '<option value="'.$row['subject_id'].'">'.strtoupper($row['name']).'</option>';
+                                if($row['subject_id']==$question['subject_id'])
+                                    echo '<option value="'.$row['subject_id'].'" selected>'.strtoupper($row['name']).'</option>';
+                                else
+                                    echo '<option value="'.$row['subject_id'].'">'.strtoupper($row['name']).'</option>';
+
                                 $sub[$row['subject_id']]=array();
                                 $q1=mysqli_query($con,"select * from topics where subject_id='".$row['subject_id']."'");
                                 while($topic=mysqli_fetch_assoc($q1)){
@@ -179,7 +184,15 @@
                 <label class="col-md-2">Topic:</label>
                 <div class="col-md-4">
                     <select class="form-control" name="course" id="course" required>
-                        <option value=''>Select Topic</option>
+                        <?php
+                            foreach ($sub[$question['subject_id']] as $value) {
+                                if($value[0]==$question['topic_id'])
+                                    echo '<option value="'.$value[0].'" selected>'.$value[1].'</option>';
+                                else
+                                    echo '<option value="'.$value[0].'">'.$value[1].'</option>';
+                            }
+
+                        ?>
                     </select>
                 </div>
             </div>
@@ -324,13 +337,15 @@
                 <label class="col-md-2">Estimated Level</label>
                 <div class="col-md-10">
                     <select name="level" class="form-control" value="<?php  echo $question['level'];?>">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
+                        <?php
+                            for ($i=1; $i < 8; $i++) { 
+                                if($i==$question['level'])
+                                    echo '<option selected>'.$i.'</option>';
+                                else
+                                    echo '<option>'.$i.'</option>';
+                            }
+                        ?>
+                        
                     </select>
                 </div>
             </div>
@@ -433,7 +448,7 @@
             $("#course").html(str);
         }
         document.getElementById('subject').onchange=setcourse;
-        setcourse();
+        
 
         $("#question").submit(function(e){
             e.preventDefault();
@@ -554,13 +569,7 @@
 
         };
 
-         <?php
-         echo '$("#subject").val("'.$question['subject_id'].'");';
-        ?>
-        setcourse();
-        <?php
-         echo '$("#course").val("'.$question['topic_id'].'");';
-        ?>
+        
     </script>
 
 </body>

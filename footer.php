@@ -36,9 +36,22 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; 2014 - Shezar Edubox Pvt. Ltd.
+                        <small><a class="footer-link" href="template.php">About Us</a></small> | 
+                        <small><a class="footer-link" href="template.php">FAQ</a></small> | 
+                        <small><a class="footer-link" href="template.php">Pricing</a></small> | 
+                        <small><a class="footer-link" href="template.php">Contact</a></small> | 
+                        Copyright &copy; 2014 - Shezar Edubox Pvt. Ltd. 
                     </div>
                 </div>
             </div>
         </div>
     </footer>
+
+    <style>
+        .footer-link{
+            color:#fff;;
+        }
+        .footer-link:hover , .footer-link:focus{
+            color:#eee;;
+        }
+    </style>
